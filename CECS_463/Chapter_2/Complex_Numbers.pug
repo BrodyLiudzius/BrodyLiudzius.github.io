@@ -1,0 +1,28 @@
+extends /default.pug
+
+//- #toDo: Populate table of Contents
+
+block title
+    title Complex Numbers
+
+append header
+    p: a(href="/CECS_463") CECS 463
+
+block main
+    article
+        h1 Complex Numbers
+        hr
+
+        +tableOfContents()
+            li: a(href="#Introduction") Introduction
+            
+        section#Introduction
+            p
+                | #[dfn Complex numbers] are an extension of real numbers into two dimensions.
+                | The second axis is called the #[em imaginary axis] and a number in this plane is a vector.
+                | Complex numbers arise naturally from algebra since there are many polynomials that have no roots in the real number vector space.
+                | The complex number plane is the vector space of all roots of polynomial equations with degree one or higher provided the coefficients are real or complex numbers.
+        
+        section
+            h2 
+            p 
