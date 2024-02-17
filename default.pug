@@ -1,4 +1,13 @@
 doctype html
+
+mixin tableOfContents()
+    table: tr: td(style="min-width: 20vw")
+        h2 Contents
+        hr
+        ul
+            if block
+                block
+
 html(lang="en_us")
     head
         meta(charset="UTF-8")

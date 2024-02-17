@@ -8,28 +8,24 @@ block main
         h1 Decision Tree Induction
         hr
 
-        table
-            tr: td(style="min-width: 20vw")
-                h2 Contents
-                hr
+        +tableOfContents()
+            li: a(href="#Introduction") Introduction
+            li
+                a(href="#Tree_Induction") Tree Induction
+                ul: li: a(href="#Hunts_Algorithm") Hunt's Algorithm
+            li: a(href="#Splitting_Data") Splitting Data
+            li
+                a(href="#Determining_Discretization_Points") Determining Discretization Points
                 ul
-                    li: a(href="#Introduction") Introduction
-                    li
-                        a(href="#Tree_Induction") Tree Induction
-                        ul: li: a(href="#Hunts_Algorithm") Hunt's Algorithm
-                    li: a(href="#Splitting_Data") Splitting Data
-                    li
-                        a(href="#Determining_Discretization_Points") Determining Discretization Points
-                        ul
-                            li: a(href="#Purity") Purity
-                            ul
-                                li: a(href="#Gini_Index") Gini Index
-                                li: a(href="#Entropy") Entropy
-                                li: a(href="#Classification_Error") Classification Error
-                                li: a(href="#Inpurity_of_a_Non-Leaf_Node") Impurity of a Non-Leaf Node
-                            li: a(href="#Information_Gain") Information Gain
-                            li: a(href="#Gain_Ratio") Gain Ratio
-                    li: a(href="#References") References
+                    li: a(href="#Purity") Purity
+                    ul
+                        li: a(href="#Gini_Index") Gini Index
+                        li: a(href="#Entropy") Entropy
+                        li: a(href="#Classification_Error") Classification Error
+                        li: a(href="#Inpurity_of_a_Non-Leaf_Node") Impurity of a Non-Leaf Node
+                    li: a(href="#Information_Gain") Information Gain
+                    li: a(href="#Gain_Ratio") Gain Ratio
+            li: a(href="#References") References
 
         section
             h2#Introduction Introduction
