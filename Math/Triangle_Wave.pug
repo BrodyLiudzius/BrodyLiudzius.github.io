@@ -1,0 +1,35 @@
+extends /default.pug
+
+block title
+    title Triangle Wave
+
+append header
+    p: a(href="/Math") Math
+
+block main
+    article
+        h1 Triangle Wave
+        hr
+
+        +tableOfContents()
+            li: a(href="#Introduction") Introduction
+            
+        section#Introduction
+            p 
+            //- #toDo
+        
+        section#Equations
+            h2 Equations
+            p
+                | There are a number of ways to formulate the equation of a triangle wave.
+                | Commonly the floor function or mod function are used in addition to an absolute value.
+            p
+                | With the mod function, the equation is
+                | \[f\left(x\right)=\frac{4}{p}\left|{(x+\phi)\mod p}-\frac{p}{2}\right|-1 \tag{1}\]
+                | where
+            ul
+                li \(p\) is the period (unitless, it corresponds directly to the x-axis)
+                li \(phi\) is the phase (also unitless)
+            p
+                | With the floor function, the equation is
+                | \[g\left(x\right)=4\left|\frac{x+\phi}{p}-\lfloor(\frac{x+\phi}{p})\rfloor-\frac{1}{2}\right|-1 \tag{2}\]

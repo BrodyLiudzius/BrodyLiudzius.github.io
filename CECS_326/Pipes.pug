@@ -1,0 +1,99 @@
+extends /default.pug
+
+block title
+    title Pipes
+
+append header
+    p: a(href="/CECS_326") CECS 326
+
+block main
+    article
+        h1 Pipes
+        hr
+
+        +tableOfContents()
+            li: a(href="#Introduction") Introduction
+            li: a(href="#Types_of_Pipes") Types of Pipes
+            ul
+                li: a(href="#Anonymous_Pipes") Anonymous Pipes
+                ul
+                    li: a(href="#Anonymous_Pipes_Windows") Windows
+                    li: a(href="#Anonymous_Pipes_POSIX") POSIX
+                li: a(href="#Named_Pipes") Named Pipes
+            li: a(href="#References") References
+
+        section#Introduction
+            p
+                | #[dfn Pipes] are a form of Interprocess Communication (IPC) where data is communicated from one process to another via shared memory.
+                | This means there is little memory overhead because the data to be communicated is not transferred, but simply shared.
+                | A process that creates a pipe is called a #[dfn pipe server].
+        
+        section#Types_of_Pipes
+            h2 Types of Pipes
+            p There are two types of pipes, #[em named pipes] and #[em anonymous pipes] (also called "unnamed" or "ordinary" pipes).
+
+            section#Anonymous_Pipes
+                h3 Anonymous Pipes
+                p
+                    | Anonymous pipes have less overhead but are more limited in their ccapabilities.
+                    | They only allow on-way communication between a the process that created the pipe and its child processes.
+                    | In Windows, anonymous pipes do not support asynchronous read/write operations.
+                p
+                    | An anonymous pipe will exist until all handles to it have been closed. 
+                
+                section#Anonymous_Pipes_Windows
+                    h4 Windows
+                    p
+                        | In Windows, pipes can be created with the #[a(href="https://learn.microsoft.com/en-us/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe") #[code CreatePipe]] function.
+                        | For a child process to be able to inherit the pipe handles, the boolean #[code bInheritHandle] of the #[a(href="https://learn.microsoft.com/en-us/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)") #[code SECURITY_ATTRIBUTES]] structure will need to be true.
+                        | The read-end and write-end of the pipe are returned as file descriptors of type #[a(href="https://learn.microsoft.com/en-us/windows/win32/fileio/file-handles") #[code HANDLE]].
+                    pre: code(class="language-cpp")
+                        | #include <Windows.h>
+                        |
+                        | HANDLE readHandle, writeHandle;
+                        | SECURITY_ATTRIBUTES securityAttributes = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
+                        | bool createdSuccessfully = CreatePipe(&readHandle, &writeHandle, &securityAttributes, 0);
+                        | 
+                        | // Do stuff with the pipe
+                        |
+                        | CloseHandle(readHandle);
+                        | CloseHandle(writeHandle);
+                    
+                section#Anonymous_Pipes_POSIX
+                    h4 POSIX
+                    p
+                        | In POSIX environments, pipes can be created with the #[a(href="https://pubs.opengroup.org/onlinepubs/9699919799/functions/pipe.html") #[code pipe]] function.
+                        | The file descriptors are integers and are returned in a two-item array.
+                        | The first integer is the file descriptor of the read-end of the pipe and the second integer is the descriptor of the write-end.
+                    pre: code(class="language-cpp")
+                        | #include <unistd.h>
+                        | 
+                        | int pipeFileDescriptor[2];
+                        | 
+                        | bool createdSuccessfully = !pipe(pipeFileDescriptor); // returns -1 on failure, otherwise 0
+                        |
+                        | // Do stuff
+                        |
+                        | close(pipe_fileDescriptor[0]); // Close read end of pipe
+                        | close(pipe_fileDescriptor[1]); // Close write end
+            
+            section#Named_Pipes
+                h3 Named Pipes
+                p
+                    | Named Pipes can be a one-way or two-way communication channel.
+                    | All processes using the named pipe have their own buffers and handles and multiple processes can use the same named pipe.
+                p
+                    | A named pipe must be explicitly opened and closed.
+                //- #toDo: Add code example
+
+        hr
+        section#References
+            h2 References
+            p
+                | [1] Microsoft, "Pipes (Interprocess Communications)", learn.microsoft.com.
+                | #[a(href="https://learn.microsoft.com/en-us/windows/win32/ipc/pipes") https://learn.microsoft.com/en-us/windows/win32/ipc/pipes]
+                | (accessed Feb 23, 2024).
+            p
+                | [2] IBM, "Pipe I/O", ibm.com.
+                | #[a(href="https://www.ibm.com/docs/en/zos/2.4.0?topic=operations-pipe-io") https://www.ibm.com/docs/en/zos/2.4.0?topic=operations-pipe-io]
+                | (accessed Feb 23, 2024).

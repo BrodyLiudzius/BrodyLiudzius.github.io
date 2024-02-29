@@ -30,8 +30,7 @@ block main
                     li: a(href="#Gain_Ratio") Gain Ratio
             li: a(href="#References") References
 
-        section
-            h2#Introduction Introduction
+        section#Introduction
             p
                 | #[dfn Decision Tree Induction] is a machine learning technique for classifying data.
                 | A set of training data that has already been classified is used to train the model (induction), this training process will produce a trained model in the form of a completed decision tree.
@@ -39,21 +38,21 @@ block main
                 | Data will filter through the decision tree until it end up in a given leaf node.
                 | The goal is that every leaf node only contains data that belongs to one class.
                 | Data can then be classified by seeing which leaf it end up in.
-        section
-            h2#Tree_Induction Tree Induction
+        section#Tree_Induction
+            h2 Tree Induction
             p
                 | Induction is the process of developing the decision tree.
                 | There are a number of  induction algorithm's such as Hunt's Algorithm, CART, ID3, C4.5, SLIQ, ans SPRINT.
-            section
-                h3#Hunts_Algorithm Hunt's Algorithm
+            section#Hunts_Algorithm
+                h3 Hunt's Algorithm
                 p
                     | Hunt's algorithm involves checking if data contains multiple classes.
                     | If so, then split the data it into multiple groups (each group is a new node on the tree) using one of the data attributes.
                     | Repeat this check on the nodes that were just created and split them if required.
                     | Continue this process until all leaf nodes contain only a single class
         
-        section
-            h2#Splitting_Data Splitting Data
+        section#Splitting_Data
+            h2 Splitting Data
             p
                 | At each node on the decision tree, data will be split based on an attribute.
                 | If the attribute is binary, then there will be two child nodes.
@@ -61,8 +60,8 @@ block main
                 | If the attribute is continuous, then data must be #[dfn discretized].
                 | This means splitting the data into groups by, for example, sorting all data greater than a value into one child node and all data less than or equal into another child node.
         
-        section
-            h2#Determining_Discretization_Points Determining Discretization Points
+        section#Determining_Discretization_Points
+            h2 Determining Discretization Points
             p
                 | For continuous attributes, a value needs to be chosen around which to discretize the data.
                 | This can be done with the following steps:
@@ -71,17 +70,18 @@ block main
                 li Calculate the #[a(href="#Purity") Impurity] of splitting the sorted data into groups at each point
                 li Split the data at the point that had the lowest impurity. This point is most likely to occur on a class boundary in the training data (as shown below).
             figure
+                //- #toDo: Replace with an original (non-copyrighted) image
                 img(src="/CECS456/DataSortedByAttribute.png" alt="A training dataset sorted by an attribute labeled 'Annual Income'. The data is binary classified as 'Yes' or 'No'. Boundaries between 'Yes' or 'No' groups in the sorted data are demarcated.")
                 figcaption #[i Fig. 1] An example of some data sorted by the "Annual Income" attribute with class boundaries demarcated. Adapted from [1]
         
-            section
-                h3#Purity Purity
+            section#Purity
+                h3 Purity
                 p
                     | #[dfn Purity] is a measure of how close a node is to containing only a single class.
                     | Since the methods of calculation typically return 0 for pure data and a positive, non-zero value for impure data, they are referred to as measures of #[em Impurity].
                     | Three such methods are the Gini Index, Entropy, and Classification Error.
-                section
-                    h4#Gini_Index Gini Index
+                section#Gini_Index
+                    h4 Gini Index
                     p The Gini index of a leaf node \(l\) is
                         | \[ \textrm{Impurity}(l)=1-\sum_{i=1}^{c-1} (P_i)^2 \tag{1} \]
                     |  where
@@ -90,21 +90,21 @@ block main
                         li \(P_i\) is the percentage of data at that node that belongs to class \(i\)
                     p and the maximum possible Gini index of a node is
                         | \[ \textrm{Impurity}_{max}(l)=1-\frac{1}{c} \tag{1.1} \]
-                section
-                    h4#Entropy Entropy
+                section#Entropy
+                    h4 Entropy
                     p The Entropy of a leaf node \(l\) is
                         | \[ \textrm{Impurity}(l)=-\sum_{i=1}^{c-1} P_i \cdot log_2(P_i) \tag{2} \]
                         | and the maximum possible entropy of a node is
                         | \[ \textrm{Impurity}_{max}(l)=log_2(c) \tag{2.1} \]
-                section
-                    h4#Classification_Error Classification Error
+                section#Classification_Error
+                    h4 Classification Error
                     p The Classification Error of a leaf node \(l\) is
                         | \[ \textrm{Impurity}(l)=1-max(P_i) \tag{3} \]
                         | where \(i\in \{1,...,c-1\}\)
                         | and the maximum possible classification error of a node is
                         | \[ \textrm{Impurity}_{max}(l)=1-\frac{1}{c} \tag{3.1} \]
-                section
-                    h4#Inpurity_of_a_Non-Leaf_Node Impurity of a Non-Leaf Node
+                section#Inpurity_of_a_Non-Leaf_Node
+                    h4 Impurity of a Non-Leaf Node
                     p
                         | The impurity of a node that is not a leaf and thus has other decision nodes as its children is simply the weighted sum of the impurities of these nodes.
                         | The sum is weigthed by the populations of these nodes.
@@ -119,16 +119,16 @@ block main
                         li \(q_i\) is the \(i^{th}\) child node
                     p If the children are not leaf nodes, then this formula becomes recursive.
 
-            section
-                h3#Information_Gain Information Gain
+            section#Information_Gain
+                h3 Information Gain
                 p
                     | #[dfn Information gain] is a way to measure the increase in purity of a node before and after splitting the data within it.
                     | As such, information gain will increase for more optimal splits.
                     | It is useful in induction algorithms like C4.5.
                     | \[ \textrm{Gain}_{\textrm{split}}(p)=\textrm{Impurity}(p)-\sum_{i=1}^{k}\textrm{Impurity}_{\textrm{split}}(q_i) \tag{5} \]
             
-            section
-                h3#Gain_Ratio Gain Ratio
+            section#Gain_Ratio
+                h3 Gain Ratio
                 p
                     | The #[dfn Gain Ratio] is a method of adjusting the perceived gain of splitting a node into many partitions.
                     | If a node a split in to many partitions that each contain only a small number of data points, this is less valuable even if the nodes are pure.

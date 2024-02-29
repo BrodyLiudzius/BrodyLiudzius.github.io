@@ -1,0 +1,55 @@
+extends /default.pug
+
+block title
+    title ARM Cortex M4
+
+append header
+    p: a(href="/CECS_347") CECS 347
+
+block main
+    article
+        h1 ARM Cortex M4 Architecture (TM4C123GH6PM)
+        hr
+
+        +tableOfContents()
+
+        section#Introduction
+            p
+                | The ARM Cortex M4 is a high performance 32-bit microcontroller.
+                | It features a Harvard architecture, three stage pipeline, and RISC instruction set.
+                | This page will focus on the Texas Instruments TM4C123GH6PM variant.
+        
+        section#Instruction_Set
+            h2 Instruction Set
+            p
+                | The TM4C123 uses Thumb-2 instruction set.
+            details
+                summary #[b Table of Supported Instructions]
+                table
+                    tr
+                        th Mnemonic
+                        th Operands
+                        th Description
+                        th Flags
+                    tr
+                        td: code ADC, ADCS
+                        td: code {Rd,} Rn, Op2
+                        td Add with carry
+                        td: code N, Z, C, V
+                //- #toDo: Finish ISA table
+            //- #toDo: Finish some details about CortexM4
+                        
+                        
+        
+        section#Peripherals
+            h2 Peripherals
+            p
+                | The following peripherals are included on the Tiva C
+
+        
+        hr
+
+        section#References
+            h2 References
+            p [1] Texas Instruments, "Tiva™ TM4C123GH6PM Microcontroller", TM4C123GH6PM datasheet, 12 Jun. 2014.
+            p [2] M. He, Class Lecture, CECS 347, College of Engineering, California State University, Long Beach, Spring 2024.
