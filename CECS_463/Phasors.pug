@@ -1,0 +1,33 @@
+extends /default.pug
+
+//- #toDo: Populate table of Contents
+
+block title
+    title Phasors
+
+append header
+    p: a(href="/CECS_463") CECS 463
+
+block main
+    article
+        h1 Phasors
+        hr
+
+        +tableOfContents()
+            li: a(href="#Introduction") Introduction
+            
+        section#Introduction
+            p
+                | A #[dfn phasor] is a #[a(href="./Complex_Numbers#Polar_Form") complex exponential] that represents the amplitude and phase of a sinusoid.
+                | Its name is a portmanteau of "phase vector".
+        
+        section#Formulation
+            h2 Formulation
+            p
+                | A
+
+        hr
+        section#References
+            h2 References
+            p [1] J. H. McClellan, R. Schafer, M. Yoder, #[i DSP First], 2nd ed. Pearson, 2016, Appendix B.
+            p [2] A. Mernhia, Class Lecture, CECS 463, College of Engineering, California State University, Long Beach, Spring 2024.
